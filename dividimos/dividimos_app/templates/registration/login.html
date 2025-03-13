@@ -1,0 +1,31 @@
+{% extends "dividimos_app/base.html" %}
+
+{% block login %}
+
+<form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+
+    <!-- Mostrar errores del formulario -->
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <!-- Campo de usuario -->
+    <div class="mb-3">
+        <label for="id_username" class="form-label text-light">Usuario</label>
+        <input type="text" class="form-control bg-light border-primary" id="id_username" name="username" required>
+    </div>
+
+    <!-- Campo de contraseña -->
+    <div class="mb-3">
+        <label for="id_password" class="form-label text-light">Contraseña</label>
+        <input type="password" class="form-control bg-light border-warning" id="id_password" name="password" required>
+    </div>
+
+    <!-- Botón de enviar -->
+    <button type="submit" class="btn btn-custom btn-yellow">Iniciar sesión</button>
+</form>
+
+{% endblock %}

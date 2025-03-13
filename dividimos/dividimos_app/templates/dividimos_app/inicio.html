@@ -1,0 +1,12 @@
+{% extends "dividimos_app/base.html" %}
+
+{% block inicio %}
+
+<div class="d-flex flex-column align-items-center">
+    
+    <a  href="{% url 'login' %}" class="btn btn-custom btn-yellow">Login</a>
+    <a  href="{% url 'registro' %}" class="btn btn-custom btn-yellow">Registro</a>
+    <button class="btn btn-custom btn-yellow">Quiero acceder sin registrarme</button>
+</div>
+
+{% endblock %}
