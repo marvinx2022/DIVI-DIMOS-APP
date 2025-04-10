@@ -5,14 +5,20 @@ from django.views.generic.edit import CreateView
 
 
 def inicio(request):
-
     return render(request, "dividimos_app/inicio.html")
 
-
-
 def login(request):
-
     return render(request, "dividimos_app/login.html")
+
+def crear_evento(request):
+    return render(request, "dividimos_app/crear_evento.html")
+
+def agregar_invitados(request):
+    return render(request, "dividimos_app/agregar_invitados.html")
+
+def resumen_aportes(request):
+    return render(request, "dividimos_app/resumen_aportes.html")
+
 
 
 # Vista para creación de nuevos usuarios:

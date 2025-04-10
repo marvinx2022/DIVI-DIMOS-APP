@@ -1,60 +1,49 @@
-from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
-from django.core.validators import RegexValidator
-from django.conf import settings
+from django.contrib.auth.models import User
+
+class Evento(models.Model):
+    nombre = models.CharField(max_length=100)
+    fecha = models.DateField()
+    lugar = models.CharField(max_length=200)
+    descripcion = models.TextField(blank=True)
+
+    def __str__(self):
+        return f"{self.nombre} - {self.fecha}"
 
 
+class Invitado(models.Model):
+    evento = models.ForeignKey(Evento, on_delete=models.CASCADE, related_name='invitados')
+    nombre = models.CharField(max_length=100)
+    apellido = models.CharField(max_length=100)
+    usuario_asociado = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    email = models.EmailField(blank=True, null=True)
+    celular = models.CharField(max_length=20, blank=True, null=True)
+    agasajado = models.BooleanField(default=False)  # No aporta si es True
 
-
-class Usuario(AbstractUser):
-    nombre = models.CharField(max_length=50)
-    apellido = models.CharField(max_length=50)
-    pais = models.CharField(max_length=40)
-    telefono = models.CharField(
-        max_length=20, 
-        blank=True, 
-        null=True, 
-    )
-    email = models.EmailField(unique=True, blank=True, null=True)
-    groups = models.ManyToManyField(Group, related_name="usuario_groups", blank=True)
-    user_permissions = models.ManyToManyField(Permission, related_name="usuario_permissions", blank=True)
-
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['nombre', 'apellido']
-    
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
 
 
-class Evento(models.Model):
-    nombre = models.CharField(max_length=255)
-    fecha = models.DateField()
-    creador = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="eventos")
-
-    def __str__(self):
-        return self.nombre
-    
-    
-    
-# Modelo que relaciona el invitado con el evento, este campo la va a actualizar el usuario registrado que cree el evento. 
-
-class Invitado(models.Model):
-    evento = models.ForeignKey(Evento, on_delete=models.CASCADE, related_name="invitados")
-    nombre = models.CharField(max_length=255)
-    telefono = models.CharField(max_length=15, blank=True, null=True)
-    email = models.EmailField(blank=True, null=True)
-
-    def __str__(self):
-        return f"{self.nombre} ({self.evento.nombre})"
-
-
-# Aporte relacionado con invitado y evento. 
 class Aporte(models.Model):
-    invitado = models.ForeignKey(Invitado, on_delete=models.CASCADE, related_name="aportes")
-    evento = models.ForeignKey(Evento, on_delete=models.CASCADE, related_name="aportes")
-    dinero = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-    mercaderia = models.TextField(blank=True, null=True)  
-    precio_mercaderia = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    TIPO_APORTE = (
+        ('dinero', 'Dinero'),
+        ('mercancia', 'Mercancía'),
+    )
+    invitado = models.ForeignKey(Invitado, on_delete=models.CASCADE, related_name='aportes')
+    tipo = models.CharField(max_length=10, choices=TIPO_APORTE)
+    descripcion = models.CharField(max_length=200, blank=True)
+    valor_estimado = models.DecimalField(max_digits=10, decimal_places=2)  # usado para ambos tipos
 
     def __str__(self):
-        return f"Aporte de {self.invitado.nombre} para {self.evento.nombre}"
+        return f"{self.tipo.capitalize()} - {self.valor_estimado} ({self.invitado})"
+
+
+class Resultado(models.Model):
+    evento = models.OneToOneField(Evento, on_delete=models.CASCADE, related_name='resultado')
+    total_recaudado = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    total_gastos = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    aportes_individuales = models.JSONField(default=dict)  # {"invitado_id": valor_aporte}
+    division_gastos = models.JSONField(default=dict)       # {"invitado_id": cuanto_deberia_aportar}
+
+    def __str__(self):
+        return f"Resultados de {self.evento.nombre}"

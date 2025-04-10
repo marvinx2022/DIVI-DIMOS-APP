@@ -123,7 +123,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'dividimos_app.Usuario'
+#AUTH_USER_MODEL = 'dividimos_app.Usuario'
 
 LOGIN_REDIRECT_URL = 'inicio'
 
