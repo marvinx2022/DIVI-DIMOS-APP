@@ -1,31 +1,46 @@
 {% extends "dividimos_app/base.html" %}
 
-{% block login %}
+{% block title %}Iniciar sesión | DIVI-DIMOS{% endblock %}
 
-<form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
+{% block inicio %}
+    <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+        <div class="card" style="width: 100%; max-width: 400px;">
+            <div class="card-body">
+                <h3 class="card-title text-center mb-4">Iniciar sesión</h3>
 
-    <!-- Mostrar errores del formulario -->
-    {% if form.non_field_errors %}
-        <div class="alert alert-danger">
-            {{ form.non_field_errors }}
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="id_username" class="form-label">Correo Electrónico</label>
+                        <input type="text" name="username" id="id_username" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_password" class="form-label">Contraseña</label>
+                        <input type="password" name="password" id="id_password" class="form-control" required>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-custom-primary btn-lg">Iniciar sesión</button>
+                    </div>
+
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger mt-3">
+                            <ul>
+                                {% for error in form.non_field_errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                </form>
+
+                <div class="mt-4 text-center">
+                    <p>¿No tienes cuenta? <a href="{% url 'registro' %}">Regístrate</a></p>
+                    <p><a href="{% url 'evento' %}">Ingresar sin registrarme</a></p>
+                </div>
+            </div>
         </div>
-    {% endif %}
-
-    <!-- Campo de usuario -->
-    <div class="mb-3">
-        <label for="id_username" class="form-label text-light">Usuario</label>
-        <input type="text" class="form-control bg-light border-primary" id="id_username" name="username" required>
     </div>
-
-    <!-- Campo de contraseña -->
-    <div class="mb-3">
-        <label for="id_password" class="form-label text-light">Contraseña</label>
-        <input type="password" class="form-control bg-light border-warning" id="id_password" name="password" required>
-    </div>
-
-    <!-- Botón de enviar -->
-    <button type="submit" class="btn btn-custom btn-yellow">Iniciar sesión</button>
-</form>
-
 {% endblock %}

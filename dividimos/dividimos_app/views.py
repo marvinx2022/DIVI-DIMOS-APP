@@ -19,6 +19,8 @@ def agregar_invitados(request):
 def resumen_aportes(request):
     return render(request, "dividimos_app/resumen_aportes.html")
 
+def resultado(request):
+    return render(request, "dividimos_app/resultado.html")
 
 
 # Vista para creación de nuevos usuarios:

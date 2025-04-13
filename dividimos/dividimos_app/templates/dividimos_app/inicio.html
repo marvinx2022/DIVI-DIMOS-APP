@@ -1,12 +1,18 @@
 {% extends "dividimos_app/base.html" %}
 
+{% block title %}Bienvenido a DIVI-DIMOS{% endblock %}
+
 {% block inicio %}
-
-<div class="d-flex flex-column align-items-center">
-    
-    <a  href="{% url 'login' %}" class="btn btn-custom btn-yellow">Login</a>
-    <a  href="{% url 'registro' %}" class="btn btn-custom btn-yellow">Registro</a>
-    <button class="btn btn-custom btn-yellow">Quiero acceder sin registrarme</button>
-</div>
-
+    <div class="container text-center">
+        <h1 class="display-4 mb-4">¡Bienvenido a DIVI-DIMOS!</h1>
+        <p class="lead mb-4">La forma más fácil de dividir los gastos de tus eventos.</p>
+        
+        <!-- Botones de acción -->
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <a href="{% url 'login' %}" class="btn btn-custom-primary btn-lg">Ingresar</a>
+            <a href="{% url 'registro' %}" class="btn btn-custom-secondary btn-lg">Registrarme</a>
+            <a href="{% url 'evento' %}" class="btn btn-outline-custom btn-lg">Quiero ingresar sin registrarme</a>
+        </div>
+    </div>
 {% endblock %}
+

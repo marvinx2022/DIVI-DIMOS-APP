@@ -1,58 +1,151 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DI-VI-DI-MOS?</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>{% block title %}DIVI-DIMOS{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
+        /* Ajustes de base para el cuerpo */
         body {
-            background-color:rgb(26, 15, 16);
-            color: #000;
+            background-color: #fff7ed; /* cálido, alegre */
+            color: #1f2937; /* gris oscuro para mejor contraste */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
-        .btn-custom {
-            width: 100%;
-            max-width: 300px; 
-            margin: 10px;
+
+        /* Navbar personalizada */
+        .navbar-custom {
+            background-color: #FF6F61; /* un tono cálido que resalta */
+        }
+        .navbar-custom .nav-link,
+        .navbar-custom .navbar-brand {
+            color: #ffffff !important;
+            font-size: 1.1rem; /* Aumenta el tamaño de texto en navbar */
+        }
+        .navbar-custom .nav-link:hover {
+            color: #FFDDC1; /* Un color pastel para hover */
+        }
+
+        /* Contenedor principal con padding variable */
+        .container {
+            flex: 1;
             padding: 15px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 10px;
         }
-        .btn-blue { background-color: #0cc6a9; color: white; }
-        .btn-yellow { background-color: #f9c30b; color: black; }
-        .title-custom { color: white; }
-        /* Ajuste de márgenes y centrado para pantallas grandes */
-        @media (min-width: 768px) {
-            .container {
-                max-width: 600px; 
+
+        /* Card */
+        .card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+            border-radius: 12px;
+        }
+
+        /* Footer siempre al fondo */
+        footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* Navbar Responsive */
+        @media (max-width: 768px) {
+            .navbar-custom .nav-link {
+                font-size: 1rem; /* Tamaño más pequeño en móviles */
+                padding: 0.5rem 1rem; /* Ajuste de espacio en botones */
             }
         }
+
+
+        /* Colores personalizados para los botones */
+.btn-custom-primary {
+    background-color: #FF6F61;
+    color: #ffffff;
+    border: none;
+}
+
+.btn-custom-primary:hover {
+    background-color: #FF4E42;
+}
+
+.btn-custom-secondary {
+    background-color: #FFD700;
+    color: #111827;
+    border: none;
+}
+
+.btn-custom-secondary:hover {
+    background-color: #FFCC00;
+}
+
+.btn-outline-custom {
+    border-color: #4F46E5;
+    color: #4F46E5;
+}
+
+.btn-outline-custom:hover {
+    background-color: #4F46E5;
+    color: #ffffff;
+}
+
     </style>
 </head>
 <body>
-    <div class="container text-center mt-5">
-        <h1 class="title-custom">DI-VI-DI-MOS</h1>
-        
-        {% block inicio %}
-        {% endblock %}
 
-        {% block login %}
-        {% endblock %}
-
-        {% block registro %}
-        {% endblock %}
-
-        {% block crear_evento %}
-        {% endblock %}
-
-        {% block agregar_invitados %}
-        {% endblock %}
-
-        {% block resumen_aportes %}
-        {% endblock %}
-
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'inicio' %}">DIVI-DIMOS</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'evento' %}">Eventos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'evento' %}">Perfil</a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'evento' %}">Cerrar sesión</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'evento' %}">Iniciar sesión</a>
+        </li>
+        {% endif %}
+      </ul>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </div>
+</nav>
+
+<!-- Contenido principal -->
+<main class="container">
+    {% block inicio %}{% endblock %}
+    {% block login %}{% endblock %}
+    {% block registro %}{% endblock %}
+    {% block crear_evento %}{% endblock %}
+    {% block agregar_invitados %}{% endblock %}
+    {% block resumen_aportes %}{% endblock %}
+    {% block resultado %}{% endblock %}
+</main>
+
+<!-- Footer -->
+<footer class="text-center text-muted mt-5 mb-3">
+    <small>&copy; 2025 DIVI-DIMOS. Todos los derechos reservados.</small>
+</footer>
+
+<!-- Bootstrap JS (opcional para funcionalidades como dropdowns, collapse, etc.) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

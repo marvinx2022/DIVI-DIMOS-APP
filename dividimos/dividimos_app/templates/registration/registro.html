@@ -1,46 +1,47 @@
 {% extends "dividimos_app/base.html" %}
 
+{% block title %}Registro de Usuario - DIVI-DIMOS{% endblock %}
+
 {% block registro %}
-
-<h2 class="text-center mb-4">Registro de Usuario</h2>
-
-<form method="post">
-    {% csrf_token %}
-    
-    <!-- Mostrar errores del formulario -->
-    {% if form.non_field_errors %}
-        <div class="alert alert-danger">
-            {{ form.non_field_errors }}
+    <div class="container text-center">
+        <h1 class="display-4 mb-4">¡Crea tu cuenta en DIVI-DIMOS!</h1>
+        <p class="lead mb-4">Regístrate para comenzar a dividir los gastos de tus eventos.</p>
+        
+        <!-- Formulario de Registro -->
+        <div class="col-md-6 mx-auto">
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="id_username" class="form-label">Nombre de usuario</label>
+                    <input type="text" name="username" id="id_username" class="form-control" value="{{ form.username.value }}">
+                </div>
+                <div class="mb-3">
+                    <label for="id_password1" class="form-label">Contraseña</label>
+                    <input type="password" name="password1" id="id_password1" class="form-control" value="{{ form.password1.value }}">
+                </div>
+                <div class="mb-3">
+                    <label for="id_password2" class="form-label">Confirmar contraseña</label>
+                    <input type="password" name="password2" id="id_password2" class="form-control" value="{{ form.password2.value }}">
+                </div>
+                <div class="mb-3">
+                    <label for="id_email" class="form-label">Correo electrónico</label>
+                    <input type="email" name="email" id="id_email" class="form-control" value="{{ form.email.value }}">
+                </div>
+                <div class="mb-3">
+                    <label for="id_first_name" class="form-label">Nombre</label>
+                    <input type="text" name="first_name" id="id_first_name" class="form-control" value="{{ form.first_name.value }}">
+                </div>
+                <div class="mb-3">
+                    <label for="id_last_name" class="form-label">Apellido</label>
+                    <input type="text" name="last_name" id="id_last_name" class="form-control" value="{{ form.last_name.value }}">
+                </div>
+                <button type="submit" class="btn btn-custom-primary btn-lg">Registrarme</button>
+            </form>
         </div>
-    {% endif %}
-
-    <!-- Campo de usuario -->
-    <div class="mb-3">
-        <label for="id_username" class="form-label text-light">Usuario</label>
-        <input type="text" class="form-control bg-light border-primary" id="id_username" name="username" value="{{ form.username.value }}" required>
+        
+        <!-- Enlace a Login si ya tienes cuenta -->
+        <div class="mt-4">
+            <p>¿Ya tienes cuenta? <a href="{% url 'login' %}">Inicia sesión aquí</a></p>
+        </div>
     </div>
-
-    <!-- Campo de correo electrónico (si agregaste este campo en el formulario personalizado) -->
-    <div class="mb-3">
-        <label for="id_email" class="form-label text-light">Correo electrónico</label>
-        <input type="email" class="form-control bg-light border-primary" id="id_email" name="email" value="{{ form.email.value }}" required>
-    </div>
-
-    <!-- Campo de contraseña -->
-    <div class="mb-3">
-        <label for="id_password1" class="form-label text-light">Contraseña</label>
-        <input type="password" class="form-control bg-light border-warning" id="id_password1" name="password1" required>
-    </div>
-
-    <!-- Campo de confirmación de contraseña -->
-    <div class="mb-3">
-        <label for="id_password2" class="form-label text-light">Confirmar Contraseña</label>
-        <input type="password" class="form-control bg-light border-warning" id="id_password2" name="password2" required>
-    </div>
-
-    <!-- Botón de enviar -->
-    <button type="submit" class="btn btn-success w-100">Registrarse</button>
-</form>
-
-
 {% endblock %}
