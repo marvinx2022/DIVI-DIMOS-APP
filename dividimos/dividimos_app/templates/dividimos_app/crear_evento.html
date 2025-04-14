@@ -11,35 +11,45 @@
         <div class="col-md-8 mx-auto">
             <form method="post">
                 {% csrf_token %}
+                
                 <div class="mb-3">
                     <label for="id_nombre" class="form-label">Nombre del Evento</label>
                     {{ form.nombre }}
+                    <!-- TODO: Aquí agregar validación y mensaje de error si no se llena el campo correctamente -->
                 </div>
 
                 <div class="mb-3">
                     <label for="id_fecha" class="form-label">Fecha del Evento</label>
                     {{ form.fecha }}
+                    <!-- TODO: Aquí agregar validación y mensaje de error si no se selecciona una fecha -->
                 </div>
 
                 <div class="mb-3">
                     <label for="id_hora" class="form-label">Hora del Evento</label>
                     {{ form.hora }}
+                    <!-- TODO: Aquí agregar validación y mensaje de error si no se selecciona una hora -->
                 </div>
 
                 <div class="mb-3">
                     <label for="id_lugar" class="form-label">Lugar del Evento</label>
                     {{ form.lugar }}
+                    <!-- TODO: Aquí agregar validación y mensaje de error si no se llena el campo correctamente -->
                 </div>
 
                 <div class="mb-3">
                     <label for="id_descripcion" class="form-label">Descripción del Evento</label>
                     {{ form.descripcion }}
+                    <!-- TODO: Aquí agregar validación y mensaje de error si no se llena el campo correctamente -->
                 </div>
 
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary btn-lg">Crear Evento</button>
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        Crear Evento
+                    </button>
                 </div>
             </form>
         </div>
     </div>
+
+ 
 {% endblock %}

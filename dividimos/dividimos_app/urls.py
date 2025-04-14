@@ -1,5 +1,5 @@
 from django.urls import path
-from dividimos_app.views import inicio, CrearUsuario, crear_evento, agregar_invitados, resumen_aportes, resultado
+from dividimos_app.views import inicio, CrearUsuario, crear_evento, agregar_invitados, resumen_aportes, resultado, dashboard
 from django.contrib.auth import views as auth_views
 
 
@@ -11,6 +11,7 @@ urlpatterns = [
     path("crear_evento/", crear_evento, name="evento"),
     path("agregar_invitados/", agregar_invitados, name="invitados"),
     path("resumen_aportes/", resumen_aportes, name="resumen"),
-    path("resultado/", resultado, name="resultado")
+    path("resultado/", resultado, name="resultado"),
+    path("dashboard/", dashboard, name="dashboard")
    
 ]

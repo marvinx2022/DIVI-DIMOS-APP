@@ -22,6 +22,8 @@ def resumen_aportes(request):
 def resultado(request):
     return render(request, "dividimos_app/resultado.html")
 
+def dashboard(request):
+    return render(request, "dividimos_app/dashboard.html")
 
 # Vista para creación de nuevos usuarios:
 

@@ -1,37 +1,60 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DI-VI-DI-MOS</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #fa3b4b;
-            color: #000;
-        }
-        .btn-custom {
-            width: 100%;
-            max-width: 300px;
-            margin: 10px;
-            padding: 15px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 10px;
-        }
-        .btn-blue { background-color: #0cc6a9; color: white; }
-        .btn-yellow { background-color: #f9c30b; color: black; }
-        .title-custom { color: white; }
-    </style>
-</head>
-<body>
-    <div class="container text-center mt-5">
-        <h1 class="title-custom">DI-VI-DI-MOS</h1>
-        <div class="d-flex flex-column align-items-center">
-            <button class="btn btn-custom btn-yellow">Login-Registro</button>
-            <button class="btn btn-custom btn-yellow">Quiero acceder sin registrarme</button>
+{% extends "dividimos_app/base.html" %}
+
+{% block title %}Dashboard - DIVI-DIMOS{% endblock %}
+
+{% block dashboard %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">¡Bienvenido/a a tu panel, {{ user.first_name }}!</h2>
+    <p class="text-center lead mb-5">Elige una opción para comenzar</p>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <!-- Mis eventos -->
+        <div class="col">
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                    <i class="bi bi-calendar-event" style="font-size: 2rem; color: #FF6F61;"></i>
+                    <h5 class="card-title mt-3">Mis Eventos</h5>
+                    <p class="card-text">Consulta los eventos que has creado o en los que participas.</p>
+                    <a href="{% url 'inicio' %}" class="btn btn-custom-primary">Ver eventos</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nuevo evento -->
+        <div class="col">
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                    <i class="bi bi-plus-circle" style="font-size: 2rem; color: #FF6F61;"></i>
+                    <h5 class="card-title mt-3">Nuevo Evento</h5>
+                    <p class="card-text">Crea un nuevo evento para empezar a dividir los gastos.</p>
+                    <a href="{% url 'inicio' %}" class="btn btn-custom-secondary">Crear evento</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mi perfil -->
+        <div class="col">
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                    <i class="bi bi-person-circle" style="font-size: 2rem; color: #FF6F61;"></i>
+                    <h5 class="card-title mt-3">Mi Perfil</h5>
+                    <p class="card-text">Consulta y edita tus datos personales.</p>
+                    <a href="{% url 'inicio' %}" class="btn btn-outline-custom">Ir al perfil</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resumen de gastos (opcional) -->
+        <div class="col">
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                    <i class="bi bi-cash-stack" style="font-size: 2rem; color: #FF6F61;"></i>
+                    <h5 class="card-title mt-3">Resumen de Gastos</h5>
+                    <p class="card-text">Consulta tus aportes y balances generales.</p>
+                    <a href="{% url 'inicio' %}" class="btn btn-outline-custom">Ver resumen</a>
+                </div>
+            </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+</div>
+{% endblock %}
